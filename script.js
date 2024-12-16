@@ -121,11 +121,13 @@ const newCard = (task) => {
 //update task
 const atualizarExercicio = () => {
     const desc = $campoExercicioDescricao.val();
+    const title = $campoExercicioNome.val();
 
     let exercicios = exercicioStorageGetAll();
     exercicios.forEach(x => {
         if(x.id === exercicioSelecionado) {
             x.description = desc;
+            x.title = title;
         }
     })
 
@@ -183,12 +185,19 @@ function getNewPosition(column, posY) {
 // end - drag and drop
 
 const init = () => {
+    $("#btn-createTask").on("click", () => {
+        exercicioSelecionado = 0;
+        $campoExercicioNome.val("");
+        $campoExercicioDescricao.val("");
+    })
+
     //on changes
     $campoExercicioNome.on("keydown", (e) => {
         $errorMessage.addClass("d-none");
-        if(e.key === "Enter" && isValid()) {
-            if(true) criarExercicio();
-            else atualizarExercicio()
+        if(e.key === "Enter") {
+            if(exercicioSelecionado == 0) {
+                if(isValid()) criarExercicio();
+            } else atualizarExercicio()
         }
     })
     
@@ -199,10 +208,9 @@ const init = () => {
 
     // confirmação de modal
     $btnSave.click(() => {
-        if(isValid()) {
-            if(true) criarExercicio();
-            else atualizarExercicio()
-        }
+        if(exercicioSelecionado == 0) {
+            if(isValid()) criarExercicio();
+        } else atualizarExercicio()
     });
 
     reloadCards();

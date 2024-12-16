@@ -91,6 +91,7 @@ body {
 
 /* cards com as tarefas */
 .card {
+    color: var(--root-text);
     /* box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); */
     background-color: var(--root-bg);
     cursor: pointer;
